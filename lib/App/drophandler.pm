@@ -13,7 +13,8 @@ App::drophandler - drag-and-drop URL receiver
 
 This app allows you to launch custom actions when you drag and drop
 data from other browsers into its window. For example, you can download
-Youtube videos via C<youtube-dl> by configuring the following action:
+Youtube videos via C<youtube-dl> by configuring the following action
+in C<config.yml>:
 
   - title: Youtube
     handlers:
@@ -24,6 +25,8 @@ Youtube videos via C<youtube-dl> by configuring the following action:
 This app also makes it easy to configure bookmarklets for such actions
 so that you can also trigger the actions from within your browser without
 needing to leave the browser.
+
+TODO: add a gif animation of the above here
 
 =cut
 
@@ -67,6 +70,8 @@ sub restructure_arguments($args, $max_size, @allowed_keys) {
     $data
 }
 
+# XXX Document API and format of parameters for POST requests
+
 post '/dropped' => sub {
     my $params= params;
     $params->{ zone } =~ /^drop_(\d+)$/
@@ -84,6 +89,8 @@ post '/dropped' => sub {
     
     return "OK"
 };
+
+# XXX Document API and format of parameters for GET requests
 
 get '/dropped' => sub {
     my $params= params;
@@ -103,6 +110,8 @@ get '/dropped' => sub {
     return "OK"
 };
 
+# XXX Document API and format of parameters for reloading the config
+
 post '/reload_config' => sub {
     #reload_config( $configfile );
     return redirect '/';
@@ -113,8 +122,6 @@ get '/about' => sub {
 };
 
 get '/' => sub {
-    #use Data::Dumper;
-    #print Dumper config->{zones};
     my $zone_id= 0;
     my @zones = map {
         add_default_values( $_, $zone_id++ );
