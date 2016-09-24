@@ -14,7 +14,7 @@
       <section id="drop_<% zone.zone_id %>" class="dropzone" <% IF zone.html_style %>style="<% zone.html_style %>"<% END %>>
           <h3><% zone.title %> <div class="loader"></div></h3>
           <!-- We create a new image to prevent replacing the current page -->
-          <a href="javascript:(function(){(new Image()).src = 'http<%request.secure? "s" : ""%>://<% request.host %>/dropped?zone=drop_<%zone.zone_id%>;data[1][content_type]=text%2fplain;data[1][data]='+encodeURIComponent(document.location)})();">Bookmarklet</a>
+          Bookmarklet: <a href="javascript:(function(){(new%20Image()).src='http<%request.secure? "s" : ""%>://<% request.host %>/dropped?zone=drop_<%zone.zone_id%>;data[1][content_type]=text%2fplain;data[1][data]='%2bencodeURIComponent(document.location)})();"><% zone.title %></a>
       </section>
       <% END %>
 
