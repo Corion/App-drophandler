@@ -7,8 +7,25 @@ use feature 'signatures';
 use vars '$VERSION';
 $VERSION = '0.01';
 
-# Also support pjax?!
-# What for?
+=head1 NAME
+
+App::drophandler - drag-and-drop URL receiver
+
+This app allows you to launch custom actions when you drag and drop
+data from other browsers into its window. For example, you can download
+Youtube videos via C<youtube-dl> by configuring the following action:
+
+  - title: Youtube
+    handlers:
+        - name: Youtube-download
+          url_like: (https?://(?:youtu.be|youtube.com)/.*)
+          handler: "youtube-dl \"$1\""
+
+This app also makes it easy to configure bookmarklets for such actions
+so that you can also trigger the actions from within your browser without
+needing to leave the browser.
+
+=cut
 
 #$configfile ||= './drophandler.ini';
 
