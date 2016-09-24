@@ -13,3 +13,4 @@ Makefile$
 ^.*\.swp$
 ^config.yml
 ^MYMETA.*
+^App-drophandler-*
