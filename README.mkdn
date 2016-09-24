@@ -1,0 +1,4 @@
+## `restructure_arguments`
+
+Restore the datastructure (AoH) from a series of keys
+of the form `data[n][foo]`.

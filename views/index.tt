@@ -1,0 +1,131 @@
+<!-- http://fgnass.github.io/spin.js/ -->
+<script src="/javascripts/spin-2.3.1/spin.js" ></script>
+<style>
+.dropzone :hover {
+	-moz-box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+</style>
+
+<div id="page">
+      <div id="content">
+      <% FOR zone IN zones %>
+      <section id="drop_<% zone.zone_id %>" class="dropzone" <% IF zone.html_style %>style="<% zone.html_style %>"<% END %>>
+          <h3><% zone.title %> <div class="loader"></div></h3>
+          <!-- We create a new image to prevent replacing the current page -->
+          <a href="javascript:(function(){(new Image()).src = 'http<%request.secure? "s" : ""%>://<% request.host %>/dropped?zone=drop_<%zone.zone_id%>;data[1][content_type]=text%2fplain;data[1][data]='+encodeURIComponent(document.location)})();">Bookmarklet</a>
+      </section>
+      <% END %>
+
+<script>
+var addEvent = (function () {
+  if (document.addEventListener) {
+    return function (el, type, fn) {
+      if (el && el.nodeName || el === window) {
+        el.addEventListener(type, fn, false);
+      } else if (el && el.length) {
+        for (var i = 0; i < el.length; i++) {
+          addEvent(el[i], type, fn);
+        }
+      }
+    };
+  } else {
+    return function (el, type, fn) {
+      if (el && el.nodeName || el === window) {
+        el.attachEvent('on' + type, function () { return fn.call(el, window.event); });
+      } else if (el && el.length) {
+        for (var i = 0; i < el.length; i++) {
+          addEvent(el[i], type, fn);
+        }
+      }
+    };
+  }
+})();
+
+function cancel(e) {
+  if (e.preventDefault) e.preventDefault(); // required by FF + Safari
+  e.dataTransfer.dropEffect = 'copy'; // tells the browser what drop effect is allowed here
+  return false; // required by IE
+}
+
+function entities(s) {
+  var e = {
+    '"' : '&quot;',
+    '&' : '&amp;',
+    '<' : '&lt;',
+    '>' : '&gt;'
+  };
+  return s.replace(/["&<>]/g, function (m) {
+    return e[m];
+  });
+}
+
+// var getDataType = document.querySelector('#text');
+
+function addDropHandler( id ) {
+  var drop = document.querySelector(id);
+
+  // Tells the browser that we *can* drop on this target
+  addEvent(drop, 'dragover', cancel);
+  addEvent(drop, 'dragenter', cancel);
+  //var spinner;
+
+  addEvent(drop, 'drop', function (e) {
+    if (e.preventDefault) e.preventDefault(); // stops the browser from redirecting off to the text.
+/*
+    spinner = new Spinner({ radius: 0, width: drop.offsetHeight / 2 })
+    spinner.spin();
+    drop.appendChild(spinner.el);
+*/
+    /** THIS IS THE MAGIC: we read from getData based on the content type - so it grabs the item matching that format **/
+    
+    
+    //if (getDataType.checked == false && e.dataTransfer.types) {
+    var payload= [];
+    if (e.dataTransfer.types) {
+      [].forEach.call(e.dataTransfer.types, function (type) {
+        payload.push({
+          "data"         : e.dataTransfer.getData(type),
+          "content_type" : type
+        });
+      });
+      
+    } else {
+      // ... however, if we're IE, we don't have the .types property, so we'll just get the Text value
+      payload.push({
+          "data"         : e.dataTransfer.getData('Text'),
+          "content_type" : "text/plain" // We don't know any better
+      });
+    }
+    
+    // Display the contents for debugging
+    // Send off our payload to the mothership    
+    $.ajax({
+      type: "POST",
+      url: "/dropped",
+      data: {
+        zone: drop.id,
+        data: payload
+      },
+      success: function() {
+        // Flash success here, shortly
+        // Hide spinner
+        spinner.stop();
+      }
+    });
+    
+    return false;
+  });
+};
+
+$(function() {
+<% FOR zone IN zones %>
+addDropHandler( "#drop_<% zone.zone_id %>" );
+<% END %>
+});
+</script>
+
+        </div>
+      </div>
+    </div>

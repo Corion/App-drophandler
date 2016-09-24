@@ -1,0 +1,32 @@
+=head1 INSTALLATION
+
+These are the installation instructions for App::drophandler.
+
+The module releases are hosted on CPAN. The module
+can be installed:
+
+=over
+
+=item latest release from CPAN
+
+  cpan App::drophandler
+
+or
+
+  cpanm App::drophandler
+
+=item directly, as the latest development files
+
+ cpanm git://github.com/Corion/app-drophandler.git
+
+=item manually cloninig the repository:
+
+ git clone git://github.com/Corion/app-drophandler.git
+ cd App_drophandler
+ perl Makefile.PL
+ make
+ make test
+ make install
+
+=back
+

@@ -1,0 +1,19 @@
+<div id="page">
+<h2>Instructions</h2>
+    <article>
+      <section>
+        <p>Instructions: grab <em>anything</em> and drag it in to the drop zone below. I've included some text below, but you can drag urls, bookmarklets, files, <em>anything</em>.</p>
+        <p>Check out the functionality in different browsers, because the same content appears differently when dropped. Something to watch out for in the future.</p>
+        <p>Change the options below to see the difference between the default Text and sniffing for data (not supported in IE I'm afraid).</p>
+        <p>Try also dropping a few files from your desktop on the drop zone and notice the content-type: text/uri-list</p>
+      </section>
+    </article>
+
+<h2>Used components</h2>
+<ul>
+<li><a href="https://github.com/remy/html5demos">Some code taken from html5demos</a>, <a href="https://github.com/remy/html5demos/blob/master/MIT-LICENSE.TXT">License for Javascript</a></li>
+<li>Uses <tt><a href="http://fgnass.github.io/spin.js/">spin.js</a></tt>
+</ul>
+
+
+</div>
