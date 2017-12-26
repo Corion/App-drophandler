@@ -4,7 +4,8 @@ NAME
 
     This app allows you to launch custom actions when you drag and drop
     data from other browsers into its window. For example, you can download
-    Youtube videos via youtube-dl by configuring the following action:
+    Youtube videos via youtube-dl by configuring the following action in
+    config.yml:
 
       - title: Youtube
         handlers:
@@ -15,6 +16,8 @@ NAME
     This app also makes it easy to configure bookmarklets for such actions
     so that you can also trigger the actions from within your browser
     without needing to leave the browser.
+
+    TODO: add a gif animation of the above here
 
  restructure_arguments
 
