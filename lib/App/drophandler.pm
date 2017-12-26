@@ -78,7 +78,7 @@ post '/dropped' => sub {
         or return;
     my $zone = $1;
     warn "Zone $zone";
-    
+
     # Now, restructure our object
     my $data = restructure_arguments(
         $params,
@@ -86,7 +86,7 @@ post '/dropped' => sub {
         qw(content_type data)
     );
     dispatch( $zone, $data );
-    
+
     return "OK"
 };
 
@@ -98,7 +98,7 @@ get '/dropped' => sub {
         or return;
     my $zone = $1;
     warn "Zone $zone via GET request";
-    
+
     # Now, restructure our object
     my $data = restructure_arguments(
         $params,
@@ -106,7 +106,7 @@ get '/dropped' => sub {
         qw(content_type data)
     );
     dispatch( $zone, $data );
-    
+
     return "OK"
 };
 
@@ -149,10 +149,11 @@ sub content_type_check( $request_ct, $rule ) {
 sub dispatch( $zone_number, $data ) {
     my $zone= config->{zones}->[ $zone_number ];
     print "Handling drop in zone $zone_number ('$zone->{title}')\n";
+    $SIG{CHLD} = 'IGNORE';
     HANDLER: for my $handler ( @{ $zone->{ handlers }}) {
         print "Checking $handler->{name}\n";
         my $action;
-        
+
         for my $datacombo (@$data) {
             my $reason;
             if( $handler->{ "url_like" } && $handler->{ content_type } ) {
