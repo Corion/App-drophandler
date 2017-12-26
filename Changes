@@ -1,2 +1,17 @@
+TODO:
+    . Make config modular by allowing one or more directories
+      to be globbed for URL-handlers
+    . In-browser editing of the config? What for?
+    . Nicer welcome page, with link to "how to use it"
+    . Animated gif demoing drag-and-drop
+    . Animated gif demoing bookmarklet setup
+    . Animated gif demoing bookmarklet use
+    . Animated gif demoing keyword setup
+    . Animated gif demoing keyword use
+    . Animated gif demoing cross-browser setup
+    . Append URL to file trivial handler as example ("bookmarks")
+    . Have a way for called shell scripts to communicate the status back
+      (exit code?)
+
 0.01 to be released
     . Released on an unsuspecting world
