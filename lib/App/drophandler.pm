@@ -171,7 +171,7 @@ sub dispatch( $zone_number, $data ) {
                     $action = $handler->{ handler };
                     my @replace_vars = map { substr $datacombo->{data}, $-[$_], $+[$_] } 0..$#+;
                     #warn Dumper \@replace_vars;
-                    $action =~ s/\$(\d+)/$replace_vars[$_]/ge;
+                    $action =~ s/\$(\d+)/$replace_vars[$1]/ge;
                 };
             };
             if( $action ) {
